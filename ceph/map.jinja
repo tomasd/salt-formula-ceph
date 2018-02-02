@@ -7,7 +7,7 @@ Debian:
   prefix_dir: ''
   services: []
 {%- endload %}
-{% set common = salt['grains.filter_by'](common_defaults, merge=salt['pillar.get']('ceph:common')) %}
+{% set common = salt['grains.filter_by'](common_defaults, merge=salt['pillar.get']('ceph:common'), default='Debian') %}
 
 {%- load_yaml as mon_defaults %}
 Debian:
@@ -16,7 +16,7 @@ Debian:
   services:
   - ceph
 {%- endload %}
-{% set  mon = salt['grains.filter_by'](mon_defaults, merge=salt['pillar.get']('ceph:mon')) %}
+{% set  mon = salt['grains.filter_by'](mon_defaults, merge=salt['pillar.get']('ceph:mon'), default='Debian') %}
 
 {%- load_yaml as mgr_defaults %}
 Debian:
@@ -25,7 +25,7 @@ Debian:
   services:
   - ceph-mgr
 {%- endload %}
-{% set  mgr = salt['grains.filter_by'](mgr_defaults, merge=salt['pillar.get']('ceph:mgr')) %}
+{% set  mgr = salt['grains.filter_by'](mgr_defaults, merge=salt['pillar.get']('ceph:mgr'), default='Debian') %}
 
 {%- load_yaml as osd_defaults %}
 Debian:
@@ -34,7 +34,7 @@ Debian:
   - ceph-common
   services: []
 {%- endload %}
-{% set osd = salt['grains.filter_by'](osd_defaults, merge=salt['pillar.get']('ceph:osd')) %}
+{% set osd = salt['grains.filter_by'](osd_defaults, merge=salt['pillar.get']('ceph:osd'), default='Debian') %}
 
 {%- load_yaml as radosgw_defaults %}
 Debian:
@@ -75,13 +75,13 @@ Debian:
   container_mode: False
   prefix_dir: ''
 {%- endload %}
-{% set client = salt['grains.filter_by'](client_defaults, merge=salt['pillar.get']('ceph:client')) %}
+{% set client = salt['grains.filter_by'](client_defaults, merge=salt['pillar.get']('ceph:client'), default='Debian') %}
 
 {%- load_yaml as setup_defaults %}
 Debian:
   crushmap: {}
 {%- endload %}
-{% set setup = salt['grains.filter_by'](setup_defaults, merge=salt['pillar.get']('ceph:setup')) %}
+{% set setup = salt['grains.filter_by'](setup_defaults, merge=salt['pillar.get']('ceph:setup'), default='Debian') %}
 
 {%- load_yaml as monitoring_defaults %}
 default:
@@ -106,7 +106,7 @@ backup:
 
 {%- endload %}
 
-{% set backup  = salt['grains.filter_by'](backup_defaults['backup'], merge=salt['pillar.get']('ceph:backup', {})) %}
+{% set backup  = salt['grains.filter_by'](backup_defaults['backup'], merge=salt['pillar.get']('ceph:backup', {}), default='Debian') %}
 
 
 {#- vim:ft=sls
