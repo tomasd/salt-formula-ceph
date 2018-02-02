@@ -1,8 +1,14 @@
 {%- from "ceph/map.jinja" import osd, common with context %}
 
+include:
+  - ceph.conf
+
 ceph_osd_packages:
   pkg.installed:
   - names: {{ osd.pkgs }}
+  - require_in:
+      - file: /etc/ceph/ceph.conf
+
 
 /etc/ceph/ceph.conf:
   file.managed:

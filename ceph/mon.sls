@@ -2,17 +2,14 @@
 
 include:
 - ceph.common
+- ceph.conf
 
 mon_packages:
   pkg.installed:
   - names: {{ mon.pkgs }}
+  - require_in:
+    - file: /etc/ceph/ceph.conf
 
-/etc/ceph/ceph.conf:
-  file.managed:
-  - source: salt://ceph/files/{{ common.version }}/ceph.conf.{{ grains.os_family }}
-  - template: jinja
-  - require:
-    - pkg: mon_packages
 
 cluster_{{ grains.host }}_secret_key:
   cmd.run:
