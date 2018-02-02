@@ -9,14 +9,6 @@ ceph_osd_packages:
   - require_in:
       - file: /etc/ceph/ceph.conf
 
-
-/etc/ceph/ceph.conf:
-  file.managed:
-  - source: salt://ceph/files/{{ common.version }}/ceph.conf.{{ grains.os_family }}
-  - template: jinja
-  - require:
-    - pkg: ceph_osd_packages
-
 {% set ceph_version = pillar.ceph.common.version %}
 
 {%- for backend_name, backend in osd.backend.iteritems() %}
